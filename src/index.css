@@ -8,4 +8,5 @@
 :root {
   --font-poppins: 'Poppins', sans-serif;
     color-scheme: light dark; 
+    @apply bg-white text-black dark:bg-black dark:text-white;
 }
