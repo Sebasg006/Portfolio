@@ -6,14 +6,19 @@ export default function Hero() {
     <div>
       {/*Hero*/}
       
-      <section id='hero' className='h-screen flex flex-col items-start justify-start text-start'
-      style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      <section 
+        id='hero' 
+        className='h-screen flex flex-col items-start justify-center text-start text-white'
+
       >
-        <h1  className='text-4xl font-bold pl-40'>
-        hi im <span>sebas</span>
+        <h1 className='text-4xl md:text-6xl font-mono font-bold pl-20 leading-snug typing'>
+          {`< Hi, I'm Sebastian />`}
         </h1>
-        <p className='mt-4 text-lg pl-40'>
-           o am a deveoper junior 
+        <p className='mt-6 text-lg md:text-2xl pl-20 font-mono typing'>
+          {`< Frontend Developer />`}
+        </p>
+        <p className='mt-2 text-md md:text-xl pl-20 font-mono text-green-400'>
+          {`< Welcome to my portfolio />`}
         </p>
       </section>
     </div>

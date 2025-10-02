@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="container px-4 mx-auto relative text-sm">
         <div className="flex justify-between items-center">
           <div className="flex items-center flex-shrink-0">
-            <img className="h-8 w-11 mr-2" src={logo} alt="logo" />
+            <img className="h-11 w-16 mr-2" src={logo} alt="logo" />
             <span className="text-xl tracking-tight">My portfolio</span>
           </div>
 

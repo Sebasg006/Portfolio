@@ -30,7 +30,7 @@ export default function About() {
   {/* Proyecto 1 */}
   <div className="group relative p-6 border rounded-lg shadow transition cursor-pointer hover:bg-green-500 hover:text-white">
     <span className="inline-flex items-center">
-      Proyecto 1
+      {`< Project 1 />`}
       <span className="ml-2 relative w-4 h-4 inline-flex items-center justify-center">
         <span
           className="
@@ -58,7 +58,7 @@ export default function About() {
   {/* Proyecto 2 */}
   <div className="group relative p-6 border rounded-lg shadow transition cursor-pointer hover:bg-green-500 hover:text-white">
     <span className="inline-flex items-center">
-      Proyecto 2
+      {`< Project 2 />`}
       <span className="ml-2 relative w-4 h-4 inline-flex items-center justify-center">
         <span
           className="
@@ -86,7 +86,7 @@ export default function About() {
   {/* Proyecto 3 */}
   <div className="group relative p-6 border rounded-lg shadow transition cursor-pointer hover:bg-green-500 hover:text-white">
     <span className="inline-flex items-center">
-      Proyecto 3
+      {`< Project 3 />`}
       <span className="ml-2 relative w-4 h-4 inline-flex items-center justify-center">
         <span
           className="

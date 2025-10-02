@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +43,28 @@
 
 .read-the-docs {
   color: #888;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent; /* desaparece y reaparece */
+  }
+}
+
+
+.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #22c55e; /* verde tailwind */
+  animation: typing 4s steps(40, end) forwards,
+             blink 0.7s step-end infinite;
 }
