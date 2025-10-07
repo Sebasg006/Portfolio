@@ -1,118 +1,107 @@
 import React from 'react'
-import image from '../assets/image.jpg'
+import Spline from '@splinetool/react-spline'
 
 export default function About() {
-    return (
-        <div>
-            {/* About*/}
-            <section
-                id="about"
-                className="h-screen flex flex-col items-left justify-center text-left"
-            >
-                <h2 className="text-3xl font-bold mb-4 max-w-2xl ml-12">
-                    about me
-                </h2>
-                <p className="mb-2 max-w-2xl ml-12">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-                    cumque mollitia suscipit vitae quos voluptatum. Facilis harum pariatur
-                    numquam reprehenderit ipsa perspiciatis! Porro officia vero,
-                    necessitatibus pariatur repellat maiores voluptates.
-                </p>
-            </section>
+const projects = [
+  {
+    name: "Clock with React",
+    description: "A simple clock application built with React.",
+    link: "https://github.com/Sebasg006/clock-with-react",
+    repo: "https://github.com/Sebasg006/clock-with-react"
+  },
+  {
+    name: "Currency Converter App",
+    description: "Convert currencies in real-time.",
+    link: "https://github.com/Sebasg006/currency-conversion",
+    repo: "https://github.com/Sebasg006/currency-conversion"
+  },
+  {
+    name: "Game",
+    description: "A first game.",
+    link: "https://github.com/Sebasg006/1-juego-javascript",
+    repo: "https://github.com/Sebasg006/1-juego-javascript"
+  }
+];
 
-            {/* projects */}
-            <section
-                id="projects"
-                className="h-screen flex flex-col items-center justify-center text-center"
-            >
-                <h2 className="text-3xl font-bold mb-4">proyectos</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-  {/* Proyecto 1 */}
-  <div className="group relative p-6 border rounded-lg shadow transition cursor-pointer hover:bg-green-500 hover:text-white">
-    <span className="inline-flex items-center">
-      {`< Project 1 />`}
-      <span className="ml-2 relative w-4 h-4 inline-flex items-center justify-center">
-        <span
-          className="
-            absolute text-lg 
-            opacity-100 scale-100 
-            group-hover:opacity-0 group-hover:scale-0
-            transition-all duration-300
-          "
-        >
-          •
-        </span>
-        <span
-          className="
-            absolute opacity-0 translate-x-0
-            group-hover:opacity-100 group-hover:translate-x-2
-            transition-all duration-300
-          "
-        >
-          →
-        </span>
-      </span>
-    </span>
-  </div>
 
-  {/* Proyecto 2 */}
-  <div className="group relative p-6 border rounded-lg shadow transition cursor-pointer hover:bg-green-500 hover:text-white">
-    <span className="inline-flex items-center">
-      {`< Project 2 />`}
-      <span className="ml-2 relative w-4 h-4 inline-flex items-center justify-center">
-        <span
-          className="
-            absolute text-lg 
-            opacity-100 scale-100 
-            group-hover:opacity-0 group-hover:scale-0
-            transition-all duration-300
-          "
-        >
-          •
-        </span>
-        <span
-          className="
-            absolute opacity-0 translate-x-0
-            group-hover:opacity-100 group-hover:translate-x-2
-            transition-all duration-300
-          "
-        >
-          →
-        </span>
-      </span>
-    </span>
-  </div>
+  return (
+    <div>
+      {/* About */}
+      <section
+        id="about"
+        className="h-screen flex flex-row items-center justify-between text-left"
+      >
+        {/* Texto */}
+        <div className="flex flex-col w-1/2 pl-12">
+          <h2 className="text-3xl font-bold mb-4 max-w-2xl">
+            About me
+          </h2>
+          <p className="mb-2 max-w-2xl">
+            I’m a front-end developer and Software & Data Engineering student who
+             loves bringing ideas to life through clean and meaningful design. I approach every project with curiosity
+              and responsibility, always exploring new perspectives to find the best solution. My goal is to create experiences that feel
+               intuitive, reliable, and built with care — where design and logic work perfectly together.
+          </p>
+        </div>
 
-  {/* Proyecto 3 */}
-  <div className="group relative p-6 border rounded-lg shadow transition cursor-pointer hover:bg-green-500 hover:text-white">
-    <span className="inline-flex items-center">
-      {`< Project 3 />`}
-      <span className="ml-2 relative w-4 h-4 inline-flex items-center justify-center">
-        <span
-          className="
-            absolute text-lg 
-            opacity-100 scale-100 
-            group-hover:opacity-0 group-hover:scale-0
-            transition-all duration-300
-          "
-        >
-          •
-        </span>
-        <span
-          className="
-            absolute opacity-0 translate-x-0
-            group-hover:opacity-100 group-hover:translate-x-2
-            transition-all duration-300
-          "
-        >
-          →
-        </span>
-      </span>
-    </span>
+       {/* Modelo 3D */}
+<div className="md:w-1/2 h-full flex items-center justify-center">
+  <div className="w-[500px] h-[500px] overflow-hidden rounded-2xl relative">
+    {/* Contenedor que bloquea la interacción */}
+    <div className="absolute inset-0 pointer-events-none z-10"></div>
+    <Spline scene="https://prod.spline.design/56F1M0NQXVmDsqqk/scene.splinecode" />
   </div>
 </div>
 
-            </section>
+      </section>
+
+      {/* Projects */}
+      <section
+  id="projects"
+  className="min-h-screen flex flex-col items-center justify-center text-center py-20 bg-black text-white"
+>
+  <h2 className="text-4xl font-extrabold mb-12 bg-gradient-to-r from-green-400 to-green-700 bg-clip-text text-transparent">
+    Proyectos
+  </h2>
+    
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl px-8">
+    {projects.map((p, i) => (
+      <a
+        key={i}
+        href={p.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative p-8 rounded-2xl border border-neutral-800 bg-neutral-950 shadow-lg transition-all duration-300 hover:border-green-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:-translate-y-2 cursor-pointer animate-fadeIn"
+      >
+        <h3 className="text-xl font-semibold mb-2 group-hover:text-green-400 transition-colors">
+          {p.name}
+        </h3>
+        <p className="text-sm text-gray-400 mb-4">{p.description}</p>
+        <div className="flex justify-center space-x-4 text-sm">
+          <a
+            href={p.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-green-500 hover:underline"
+          >
+            Código
+          </a>
+          <span className="text-gray-600">|</span>
+          <a
+            href={p.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-green-500 hover:underline"
+          >
+            Demo
+          </a>
         </div>
-    )
+      </a>
+    ))}
+  </div>
+</section>
+
+
+    </div>
+  )
 }
