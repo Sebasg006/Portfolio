@@ -6,8 +6,8 @@ const projects = [
   {
     name: "Clock with React",
     description: "A simple clock application built with React.",
-    link: "https://github.com/Sebasg006/clock-with-react",
-    repo: "https://github.com/Sebasg006/clock-with-react"
+    link: "https://github.com/Sebasg006/clock-wirh-react-native",
+    repo: "https://github.com/Sebasg006/clock-wirh-react-native"
   },
   {
     name: "Currency Converter App",
@@ -27,37 +27,35 @@ const projects = [
   return (
     <div>
       {/* About */}
-      <section
-        id="about"
-        className="h-screen flex flex-row items-center justify-between text-left"
-      >
-        {/* Texto */}
-        <div className="flex flex-col w-1/2 pl-12">
-          <h2 className="text-3xl font-bold mb-4 max-w-2xl">
-            About me
-          </h2>
-          <p className="mb-2 max-w-2xl">
-            I’m a front-end developer and Software & Data Engineering student who
-             loves bringing ideas to life through clean and meaningful design. I approach every project with curiosity
-              and responsibility, always exploring new perspectives to find the best solution. My goal is to create experiences that feel
-               intuitive, reliable, and built with care — where design and logic work perfectly together.
-          </p>
-        </div>
-
-       {/* Modelo 3D */}
-<div className="md:w-1/2 h-full flex items-center justify-center">
-  <div className="w-[500px] h-[500px] overflow-hidden rounded-2xl relative">
-    {/* Contenedor que bloquea la interacción */}
-    <div className="absolute inset-0 pointer-events-none z-10"></div>
-    <Spline scene="https://prod.spline.design/56F1M0NQXVmDsqqk/scene.splinecode" />
+      <section className="h-screen flex flex-col md:flex-row items-center justify-between text-left">
+  {/* Texto */}
+  <div className="w-full md:w-1/2 px-6 md:pl-12 mb-8 md:mb-0">
+    <h2 className="text-3xl font-bold mb-4 max-w-2xl">
+      About me
+    </h2>
+    <p className="mb-2 max-w-2xl">
+      I’m a front-end developer and Software & Data Engineering student who
+       loves bringing ideas to life through clean and meaningful design. I approach every project with curiosity
+        and responsibility, always exploring new perspectives to find the best solution. My goal is to create experiences that feel
+         intuitive, reliable, and built with care — where design and logic work perfectly together.
+    </p>
   </div>
-</div>
 
-      </section>
+  {/* Modelo 3D */}
+  <div className="w-full md:w-1/2 h-[300px] md:h-full flex items-center justify-center">
+    <div className="w-[500px] h-[500px] overflow-hidden rounded-2xl relative">
+      {/* Contenedor que bloquea la interacción */}
+      <div className="absolute inset-0 pointer-events-none z-10"></div>
+      <Spline scene="https://prod.spline.design/56F1M0NQXVmDsqqk/scene.splinecode" />
+    </div>
+  </div>
+</section>
 
       {/* Projects */}
       <section
   id="projects"
+  aria-label="My Projects"
+  role="region"
   className="min-h-screen flex flex-col items-center justify-center text-center py-20 bg-black text-white"
 >
   <h2 className="text-4xl font-extrabold mb-12 bg-gradient-to-r from-green-400 to-green-700 bg-clip-text text-transparent">
