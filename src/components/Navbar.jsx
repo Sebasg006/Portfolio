@@ -1,111 +1,150 @@
+import { useEffect, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
-import logo from "../assets/logo.png";
 import { navItems } from "../constants";
 
 const Navbar = () => {
-  const [mobileDrawerOpen, setmobileDrawerOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("");
+  const { scrollY } = useScroll();
 
-  const toggleNavbar = () => {
-    setmobileDrawerOpen(!mobileDrawerOpen);
-  };
+  // Se esconde al bajar y vuelve a aparecer al subir
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    setHidden(y > previous && y > 200 && !mobileOpen);
+    setScrolled(y > 20);
+  });
 
-  // 👇 función que maneja el scroll suave
-  const handleScroll = (e, targetId) => {
+  // Resalta la sección que se está viendo
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.querySelector(item.href))
+      .filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = (e, target) => {
     e.preventDefault();
-    const element = document.querySelector(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setmobileDrawerOpen(false); // cierra el menú móvil después de hacer clic
-    }
+    setMobileOpen(false);
+    document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <nav className="sticky top-0 z-50 py-3 backdrop-blur-lg border-neutral-700/80">
-      <div className="container px-4 mx-auto relative text-sm">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div className="flex items-center flex-shrink-0">
-            <span className="text-xl tracking-tight">My portfolio</span>
-          </div>
+    <>
+      <motion.nav
+        animate={{ y: hidden ? "-100%" : "0%" }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+          scrolled || mobileOpen
+            ? "border-neutral-800/70 bg-neutral-950/75 backdrop-blur-lg"
+            : "border-transparent"
+        }`}
+      >
+        <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-6 font-mono text-sm">
+          <a
+            href="#hero"
+            onClick={(e) => handleClick(e, "#hero")}
+            className="text-neutral-100"
+          >
+            <span className="text-neutral-500">~/</span>sebastian
+          </a>
 
-          {/* Links grandes (desktop) */}
-          <ul className="hidden lg:flex ml-14 space-x-12">
-            {navItems.map((item, index) => (
-              <li key={index}>
+          <ul className="hidden items-center gap-8 md:flex">
+            {navItems.map((item) => (
+              <li key={item.href}>
                 <a
                   href={item.href}
-                  onClick={(e) => handleScroll(e, item.href)}
-                  className="hover:text-green-500 transition-colors duration-300"
+                  onClick={(e) => handleClick(e, item.href)}
+                  className={`relative transition-colors hover:text-neutral-100 ${
+                    active === item.href ? "text-neutral-100" : "text-neutral-500"
+                  }`}
                 >
+                  {active === item.href && (
+                    <motion.span
+                      layoutId="nav-dot"
+                      className="absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-emerald-400"
+                    />
+                  )}
                   {item.label}
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* Botones derechos (desktop) */}
-          <div className="hidden lg:flex justify-center space-x-4 items-center">
-            <a
-              href="#contact"
-              onClick={(e) => handleScroll(e, "#contact")}
-              className="py-2 px-3 border rounded-md hover:border-green-500 transition"
-            >
-              Contact
-            </a>
-            <a
-              href="https://github.com/Sebasg006"
-              target="_blank"
-              className="bg-gradient-to-r from-green-500 to-green-800 py-2 px-3 rounded-md text-white"
-            >
-              GitHub
-            </a>
-          </div>
+          <a
+            href="mailto:sebasgiraldoanaya@gmail.com"
+            className="hidden rounded-full bg-neutral-100 px-4 py-1.5 font-sans font-medium text-neutral-950 transition-colors hover:bg-emerald-400 md:inline-block"
+          >
+            Let's talk
+          </a>
 
-          {/* Botón móvil */}
-          <div className="lg:hidden md:flex flex-col justify-end">
-            <button onClick={toggleNavbar}>
-              {mobileDrawerOpen ? <X /> : <Menu />}
-            </button>
-          </div>
+          <button
+            onClick={() => setMobileOpen((open) => !open)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            className="text-neutral-100 md:hidden"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
+      </motion.nav>
 
-        {/* Drawer móvil */}
-        {mobileDrawerOpen && (
-          <div className="fixed right-0 top-0 z-20 bg-neutral-900 w-full p-12 flex flex-col justify-center items-center lg:hidden">
-            <ul className="space-y-6">
-              {navItems.map((item, index) => (
-                <li key={index}>
+      {/* Menú móvil a pantalla completa */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-40 flex flex-col justify-center bg-neutral-950 px-6 md:hidden"
+          >
+            <ul className="space-y-4">
+              {navItems.map((item, i) => (
+                <motion.li
+                  key={item.href}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 + i * 0.05 }}
+                >
                   <a
                     href={item.href}
-                    onClick={(e) => handleScroll(e, item.href)}
-                    className="text-white text-lg hover:text-green-400"
+                    onClick={(e) => handleClick(e, item.href)}
+                    className="flex items-baseline gap-4 text-5xl font-semibold tracking-tight text-neutral-50"
                   >
+                    <span className="font-mono text-sm text-emerald-400">
+                      0{i + 1}
+                    </span>
                     {item.label}
                   </a>
-                </li>
+                </motion.li>
               ))}
             </ul>
-            <div className="flex space-x-6 mt-6">
-              <a
-                href="#contact"
-                onClick={(e) => handleScroll(e, "#contact")}
-                className="py-2 px-3 border rounded-md text-white hover:border-green-400"
-              >
-                Contact
-              </a>
-              <a
-                href="https://github.com/Sebasg006"
-                target="_blank"
-                className="py-2 px-3 rounded-md bg-gradient-to-r from-green-500 to-green-800 text-white"
-              >
-                GitHub
-              </a>
-            </div>
-          </div>
+            <a
+              href="mailto:sebasgiraldoanaya@gmail.com"
+              className="mt-12 font-mono text-sm text-neutral-400"
+            >
+              sebasgiraldoanaya@gmail.com
+            </a>
+          </motion.div>
         )}
-      </div>
-    </nav>
+      </AnimatePresence>
+    </>
   );
 };
 

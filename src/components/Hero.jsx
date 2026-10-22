@@ -1,137 +1,142 @@
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowDown } from "lucide-react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { Word } from "./ScrollReveal";
+
+const links = [
+  { label: "github", href: "https://github.com/Sebasg006" },
+  { label: "linkedin", href: "https://www.linkedin.com/in/sebastian-giraldo-638775307/" },
+  { label: "email", href: "mailto:sebasgiraldoanaya@gmail.com" },
+];
+
+const statement =
+  "I build web and mobile apps with React, React Native, Node and Postgres, from the first sketch to production.";
+
+// Entrada suave al cargar la página
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, delay, ease: "easeOut" },
+});
+
+function Intro() {
+  return (
+    <>
+      <motion.p
+        {...fadeUp(0)}
+        className="mb-8 flex items-center gap-2 font-mono text-sm text-neutral-500"
+      >
+        <span className="h-2 w-2 rounded-full bg-emerald-400" />
+        Medellín, Colombia
+      </motion.p>
+
+      <motion.h1
+        {...fadeUp(0.05)}
+        className="text-5xl font-semibold tracking-tight text-neutral-50 md:text-7xl"
+      >
+        Sebastián Giraldo
+      </motion.h1>
+
+      <motion.p
+        {...fadeUp(0.1)}
+        className="mt-3 text-2xl text-neutral-400 md:text-3xl"
+      >
+        Frontend developer
+      </motion.p>
+
+      <motion.p
+        {...fadeUp(0.2)}
+        className="mt-10 font-mono text-sm text-neutral-300"
+      >
+        <span className="text-emerald-400">&gt;</span> available for projects
+        <span className="cursor-blink text-emerald-400">_</span>
+      </motion.p>
+
+      <motion.ul
+        {...fadeUp(0.25)}
+        className="mt-6 flex flex-wrap gap-x-8 gap-y-3 font-mono text-sm"
+      >
+        {links.map((link) => (
+          <li key={link.label}>
+            <a
+              href={link.href}
+              target={link.href.startsWith("http") ? "_blank" : undefined}
+              rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="group inline-flex items-center gap-1 text-neutral-400 transition-colors hover:text-neutral-50"
+            >
+              {link.label}
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </li>
+        ))}
+      </motion.ul>
+    </>
+  );
+}
 
 export default function Hero() {
   const ref = useRef(null);
-  
+  const reduceMotion = useReducedMotion();
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end end"],
   });
 
-  // Parallax effects
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+  // Fase 1: la presentación se aleja y desaparece
+  const introOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const introScale = useTransform(scrollYProgress, [0, 0.25], [1, 0.92]);
+  const introY = useTransform(scrollYProgress, [0, 0.25], [0, -40]);
+
+  // Fase 2: la frase aparece y se enciende palabra por palabra
+  const statementOpacity = useTransform(scrollYProgress, [0.2, 0.3], [0, 1]);
+  const words = statement.split(" ");
+  const revealStart = 0.3;
+  const revealEnd = 0.85;
+  const step = (revealEnd - revealStart) / words.length;
+
+  // Sin animaciones si el sistema pide reducir movimiento
+  if (reduceMotion) {
+    return (
+      <section id="hero" className="mx-auto w-full max-w-5xl px-6 py-32">
+        <Intro />
+        <p className="mt-24 max-w-4xl text-3xl font-semibold leading-tight tracking-tight text-neutral-50 md:text-5xl">
+          {statement}
+        </p>
+      </section>
+    );
+  }
 
   return (
-    <section
-      ref={ref}
-      id="hero"
-      className="relative h-screen flex flex-col items-start justify-center text-start text-white overflow-hidden"
-    >
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-900/20 via-transparent to-transparent" />
-      </div>
+    <section ref={ref} id="hero" className="relative h-[260vh]">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+        <motion.div
+          style={{ opacity: introOpacity, scale: introScale, y: introY }}
+          className="absolute inset-x-0 mx-auto w-full max-w-5xl origin-left px-6"
+        >
+          <Intro />
+        </motion.div>
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-green-400/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Content with parallax */}
-      <motion.div
-        style={{ y, opacity, scale }}
-        className="relative z-10 pl-6 md:pl-20"
-      >
-        {/* Main heading with stagger animation */}
-        <motion.h1 className="text-4xl md:text-6xl font-mono font-bold leading-snug mb-6">
-          {["<", " ", "H", "i", ",", " ", "I", "'", "m", " ", "S", "e", "b", "a", "s", "t", "i", "a", "n", " ", "/", ">"].map((char, i) => (
-            <motion.span
+        <motion.p
+          style={{ opacity: statementOpacity }}
+          className="relative mx-auto w-full max-w-5xl px-6 text-3xl font-semibold leading-tight tracking-tight text-neutral-50 md:text-5xl lg:text-6xl"
+        >
+          {words.map((word, i) => (
+            <Word
               key={i}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.3 + i * 0.03,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              className={char === "<" || char === "/" || char === ">" ? "text-green-400" : ""}
+              progress={scrollYProgress}
+              range={[revealStart + i * step, revealStart + (i + 1) * step]}
             >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
+              {word}
+            </Word>
           ))}
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          className="text-lg md:text-2xl font-mono"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
-        >
-          <span className="text-green-400">&lt;</span> Frontend Developer{" "}
-          <span className="text-green-400">/&gt;</span>
         </motion.p>
-
-        {/* Welcome text */}
-        <motion.p
-          className="mt-2 text-md md:text-xl font-mono text-green-400"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.6, duration: 1 }}
-        >
-          <span className="text-green-400">&lt;</span> Welcome to my portfolio{" "}
-          <span className="text-green-400">/&gt;</span>
-        </motion.p>
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.8 }}
-          className="mt-8"
-        >
-          <a
-            href="#about"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full font-medium hover:shadow-xl hover:shadow-green-500/50 transition-all duration-300 group"
-          >
-            Explore My Work
-            <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-          </a>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2.5 }}
-        style={{ opacity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-green-400/50 rounded-full p-1"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-3 bg-green-400 rounded-full mx-auto"
-          />
-        </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
