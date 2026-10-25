@@ -11,7 +11,7 @@ import { Word } from "./ScrollReveal";
 const links = [
   { label: "github", href: "https://github.com/Sebasg006" },
   { label: "linkedin", href: "https://www.linkedin.com/in/sebastian-giraldo-638775307/" },
-  { label: "email", href: "mailto:sebasgiraldoanaya@gmail.com" },
+  { label: "email", href: "mailto:sebastian@sebasg.com" },
 ];
 
 const statement =

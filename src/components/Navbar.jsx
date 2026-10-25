@@ -144,7 +144,7 @@ const Navbar = () => {
           </ul>
 
           <a
-            href="mailto:sebasgiraldoanaya@gmail.com"
+            href="mailto:sebastian@sebasg.com"
             className="hidden rounded-full bg-neutral-100 px-4 py-2 font-sans font-medium text-neutral-950 transition-colors hover:bg-emerald-400 md:inline-block"
           >
             Let's talk
@@ -192,10 +192,10 @@ const Navbar = () => {
               ))}
             </ul>
             <a
-              href="mailto:sebasgiraldoanaya@gmail.com"
+              href="mailto:sebastian@sebasg.com"
               className="mt-12 font-mono text-sm text-neutral-400"
             >
-              sebasgiraldoanaya@gmail.com
+              sebastian@sebasg.com
             </a>
           </motion.div>
         )}

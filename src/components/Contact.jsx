@@ -42,10 +42,10 @@ export default function Contact() {
             Have a project in mind or just want to say hi? My inbox is open.
           </p>
           <a
-            href="mailto:sebasgiraldoanaya@gmail.com"
+            href="mailto:sebastian@sebasg.com"
             className="group mt-6 inline-flex items-center gap-2 text-xl text-neutral-100 underline decoration-neutral-700 underline-offset-8 transition-colors hover:decoration-emerald-400 md:text-3xl"
           >
-            sebasgiraldoanaya@gmail.com
+            sebastian@sebasg.com
             <ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
         </Reveal>
