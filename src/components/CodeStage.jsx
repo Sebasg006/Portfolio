@@ -22,7 +22,7 @@ const lines = [
   { tokens: [["    <", c.key], ["article", c.tag], [" className", c.attr], ["=", c.key], ['"card"', c.str], [">", c.key]], step: "card" },
   { tokens: [["      <", c.key], ["Avatar", c.tag], [" initials", c.attr], ["=", c.key], ['"SG"', c.str], [" />", c.key]], step: "avatar" },
   { tokens: [["      <", c.key], ["h3", c.tag], [">", c.key], ["Sebastián Giraldo", c.txt], ["</", c.key], ["h3", c.tag], [">", c.key]], step: "name" },
-  { tokens: [["      <", c.key], ["p", c.tag], [">", c.key], ["Frontend developer", c.txt], ["</", c.key], ["p", c.tag], [">", c.key]], step: "role" },
+  { tokens: [["      <", c.key], ["p", c.tag], [">", c.key], ["Full stack developer", c.txt], ["</", c.key], ["p", c.tag], [">", c.key]], step: "role" },
   { tokens: [["      <", c.key], ["Stack", c.tag], [" items", c.attr], ["=", c.key], ["{", c.key], ['["React", "Node", "SQL"]', c.str], ["}", c.key], [" />", c.key]], step: "stack" },
   { tokens: [["      <", c.key], ["Button", c.tag], [">", c.key], ["Let's talk", c.txt], ["</", c.key], ["Button", c.tag], [">", c.key]], step: "button" },
   { tokens: [["    </", c.key], ["article", c.tag], [">", c.key]] },
@@ -164,7 +164,7 @@ export default function CodeStage() {
                     </h3>
                   </Piece>
                   <Piece show={done("role")}>
-                    <p className="mt-1 text-sm text-neutral-500">Frontend developer</p>
+                    <p className="mt-1 text-sm text-neutral-500">Full stack developer</p>
                   </Piece>
                   <Piece show={done("stack")}>
                     <ul className="mt-5 flex gap-2 font-mono text-xs">

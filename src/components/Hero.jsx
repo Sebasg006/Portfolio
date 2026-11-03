@@ -46,7 +46,7 @@ function Intro() {
         {...fadeUp(0.1)}
         className="mt-3 text-2xl text-neutral-400 md:text-3xl"
       >
-        Frontend developer
+        Full stack developer
       </motion.p>
 
       <motion.p

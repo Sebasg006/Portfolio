@@ -3,9 +3,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal, ScrollText, SectionLabel } from "./ScrollReveal";
 import FeaturedWork from "./FeaturedWork";
+import Experience from "./Experience";
 
 const about =
-  "I'm a frontend developer and Software & Data Engineering student. I like turning ideas into products that feel intuitive and reliable, where design and logic work together.";
+  "I'm a full stack developer and Software & Data Engineering student. I like turning ideas into products that feel intuitive and reliable, where design and logic work together.";
 
 const skillRows = [
   ["React", "React Native", "TypeScript", "JavaScript", "Next.js", "Tailwind", "HTML", "CSS"],
@@ -13,6 +14,13 @@ const skillRows = [
 ];
 
 const projects = [
+  {
+    name: "World Radio Clock",
+    description: "Pick a city, see its local time on a live analog clock and listen to its radio stations.",
+    tags: "React · Intl API · Radio Browser API",
+    live: "https://radio.sebasg.com",
+    repo: "https://github.com/Sebasg006/world-radio-clock",
+  },
   {
     name: "Foodie",
     description: "Responsive landing page for a healthy food delivery brand.",
@@ -25,12 +33,6 @@ const projects = [
     description: "Prototype of a mobile app, built with Expo and React Native.",
     tags: "React Native · Expo · TypeScript",
     repo: "https://github.com/Sebasg006/OQUA",
-  },
-  {
-    name: "Clock",
-    description: "A clock application built with React.",
-    tags: "React · CSS",
-    repo: "https://github.com/Sebasg006/clock-wirh-react-native",
   },
 ];
 
@@ -79,10 +81,12 @@ export default function About() {
 
       <Skills />
 
+      <Experience />
+
       <FeaturedWork />
 
       <section id="projects" className="mx-auto w-full max-w-5xl px-6 py-32">
-        <SectionLabel index="04">more projects</SectionLabel>
+        <SectionLabel index="05">more projects</SectionLabel>
         <ul className="border-t border-neutral-800">
           {projects.map((project, i) => (
             <li key={project.name}>

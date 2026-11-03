@@ -86,7 +86,7 @@ export default function FeaturedWork() {
   return (
     <section id="work" aria-label="Selected work">
       <div className="mx-auto w-full max-w-5xl px-6 pt-32">
-        <SectionLabel index="03">selected work</SectionLabel>
+        <SectionLabel index="04">selected work</SectionLabel>
 
         <Reveal>
           <div className="flex items-center gap-4 md:gap-6">

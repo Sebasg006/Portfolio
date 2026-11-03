@@ -26,7 +26,7 @@ export default function Contact() {
       className="mx-auto flex min-h-screen w-full max-w-5xl flex-col justify-between px-6 pb-10 pt-32"
     >
       <div>
-        <SectionLabel index="05">contact</SectionLabel>
+        <SectionLabel index="06">contact</SectionLabel>
 
         <motion.h2
           style={{ scale, opacity }}
