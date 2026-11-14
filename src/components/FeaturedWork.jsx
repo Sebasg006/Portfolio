@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal, SectionLabel } from "./ScrollReveal";
 import logo from "../assets/coatrack/logo.svg";
 import trainer from "../assets/coatrack/trainer.jpg";
@@ -11,8 +12,9 @@ import screenDetalle from "../assets/coatrack/screen-detalle.png";
 const meta = [
   { label: "Role", value: "Product design & full-stack development" },
   { label: "Stack", value: "React Native · Expo · Node · PostgreSQL" },
-  { label: "Platform", value: "iOS & Android" },
-  { label: "Status", value: "In development" },
+  { label: "Platform", value: "Android" },
+  { label: "Status", value: "Coming soon to Google Play" },
+  { label: "Website", value: "coatrack.sebasg.com", href: "https://coatrack.sebasg.com" },
 ];
 
 // Marco de teléfono hecho en CSS alrededor de una captura
@@ -104,13 +106,35 @@ export default function FeaturedWork() {
               notes: clients, body measurements, live training sessions and
               progress, all in one place.
             </p>
+            <a
+              href="https://coatrack.sebasg.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-8 inline-flex items-center gap-2 rounded-full border border-[#E8B923]/40 px-5 py-2.5 font-mono text-sm text-[#E8B923] transition-colors hover:border-[#E8B923] hover:bg-[#E8B923]/10"
+            >
+              visit coatrack.sebasg.com
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
           </Reveal>
           <Reveal>
             <dl className="divide-y divide-neutral-800 border-y border-neutral-800">
               {meta.map((item) => (
                 <div key={item.label} className="flex justify-between gap-6 py-3 text-sm">
                   <dt className="font-mono text-neutral-500">{item.label}</dt>
-                  <dd className="text-right text-neutral-200">{item.value}</dd>
+                  <dd className="text-right text-neutral-200">
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#E8B923] underline-offset-4 hover:underline"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      item.value
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>
